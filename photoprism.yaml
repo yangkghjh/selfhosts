@@ -1,0 +1,41 @@
+version: '3.3'
+
+# Example docker-compose config file for production use
+# Container image on Docker Hub: https://hub.docker.com/r/photoprism/photoprism/
+# To keep photoprism running, add "restart: always"
+#
+# Usage: docker-compose up
+
+services:
+  photoprism:
+    image: photoprism/photoprism:latest
+    ports:
+      - 3023:2342
+    environment: # Run "photoprism help" and "photoprism config" too see all config options and current values
+      PHOTOPRISM_URL: "https://demo.photoprism.org/"
+      PHOTOPRISM_TITLE: "PhotoPrism"
+      PHOTOPRISM_SUBTITLE: "Browse your life"
+      PHOTOPRISM_DESCRIPTION: "Personal Photo Management powered by Go and Google TensorFlow. Free and open-source."
+      PHOTOPRISM_AUTHOR: "Anonymous"
+      PHOTOPRISM_TWITTER: "@browseyourlife"
+      PHOTOPRISM_UPLOAD_NSFW: "true"
+      PHOTOPRISM_HIDE_NSFW: "false"
+      PHOTOPRISM_EXPERIMENTAL: "false"
+      PHOTOPRISM_DEBUG: "false"
+      PHOTOPRISM_READONLY: "false"
+      PHOTOPRISM_PUBLIC: "false"
+      PHOTOPRISM_DISABLE_SETTINGS: "false"
+      PHOTOPRISM_HTTP_HOST: "0.0.0.0"
+      PHOTOPRISM_HTTP_PORT: 2342
+      PHOTOPRISM_SQL_HOST: "0.0.0.0"
+      PHOTOPRISM_SQL_PASSWORD: "photoprism"
+      PHOTOPRISM_ADMIN_PASSWORD: "photoprism"
+      PHOTOPRISM_WEBDAV_PASSWORD: "photoprism"
+      PHOTOPRISM_DATABASE_DRIVER: "internal"
+      PHOTOPRISM_DATABASE_DSN: "root:photoprism@tcp(localhost:4000)/photoprism?parseTime=true"
+    volumes:
+      - "~/Pictures/Originals:/photoprism/originals"
+      - "~/Pictures/Import:/photoprism/import"
+      - "photoprism-config:/photoprism/config"
+      - "photoprism-cache:/photoprism/cache"
+      - "photoprism-database:/photoprism/database"
